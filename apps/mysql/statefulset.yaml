@@ -4,11 +4,11 @@ metadata:
   name: mysql
   namespace: stateful
 spec:
-  serviceName: mysql
-  replicas: 1
   selector:
     matchLabels:
       app: mysql
+  serviceName: "mysql"
+  replicas: 1
   template:
     metadata:
       labels:
@@ -22,7 +22,7 @@ spec:
               name: mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: my-secret-pw
+              value: rootpassword
           volumeMounts:
             - name: mysql-persistent-storage
               mountPath: /var/lib/mysql
@@ -30,7 +30,7 @@ spec:
     - metadata:
         name: mysql-persistent-storage
       spec:
-        accessModes: ["ReadWriteOnce"]
+        accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
             storage: 1Gi
