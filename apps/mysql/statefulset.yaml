@@ -2,25 +2,27 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mysql
+  namespace: stateful
 spec:
-  serviceName: "mysql"
+  serviceName: mysql
   replicas: 1
   selector:
     matchLabels:
-      app: mysql-app
+      app: mysql
   template:
     metadata:
       labels:
-        app: mysql-app
+        app: mysql
     spec:
       containers:
         - name: mysql
           image: mysql:5.7
           ports:
             - containerPort: 3306
+              name: mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: "rootpass"
+              value: my-secret-pw
           volumeMounts:
             - name: mysql-persistent-storage
               mountPath: /var/lib/mysql
@@ -32,3 +34,4 @@ spec:
         resources:
           requests:
             storage: 1Gi
+        storageClassName: standard-rwo
