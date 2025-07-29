@@ -4,10 +4,11 @@ metadata:
   name: mysql
   namespace: flux-system
 spec:
-  interval: 30s
+  interval: 1m
   path: ./apps/mysql
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
   targetNamespace: stateful
+  timeout: 2m
